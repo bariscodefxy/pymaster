@@ -108,21 +108,21 @@ class PyMaster:
 			packet += i.queryAddr
 		packet += b'\0\0\0\0\0\0' # Fill last IP:Port with \0
 		self.sock.sendto(packet, addr)
-		sendFakeInfo(self.sock, "You are using bariscodefxs pymaster", gamedir, addr)
+		self.sendFakeInfo(self.sock, "You are using bariscodefxs pymaster", gamedir, addr)
 
 	def fakeInfoForOldVersions(self, gamedir, addr):
-		def sendFakeInfo(sock, warnmsg, gamedir, addr):
-			baseReply = b"\xff\xff\xff\xffinfo\n\host\\" + warnmsg.encode('utf-8') + b"\map\\update\dm\\0\\team\\0\coop\\0\\numcl\\32\maxcl\\32\\gamedir\\" + gamedir.encode('latin-1') + b"\\"
-			sock.sendto(baseReply, addr)
-
-		sendFakeInfo(self.sock, "This version is not", gamedir, addr)
-		sendFakeInfo(self.sock, "supported anymore", gamedir, addr)
-		sendFakeInfo(self.sock, "Please update Xash3DFWGS", gamedir, addr)
-		sendFakeInfo(self.sock, "From GooglePlay or GitHub", gamedir, addr)
-		sendFakeInfo(self.sock, "Эта версия", gamedir, addr)
-		sendFakeInfo(self.sock, "устарела", gamedir, addr)
-		sendFakeInfo(self.sock, "Обновите Xash3DFWGS c", gamedir, addr)
-		sendFakeInfo(self.sock, "GooglePlay или GitHub", gamedir, addr)
+		self.sendFakeInfo(self.sock, "This version is not", gamedir, addr)
+		self.sendFakeInfo(self.sock, "supported anymore", gamedir, addr)
+		self.sendFakeInfo(self.sock, "Please update Xash3DFWGS", gamedir, addr)
+		self.sendFakeInfo(self.sock, "From GooglePlay or GitHub", gamedir, addr)
+		self.sendFakeInfo(self.sock, "Эта версия", gamedir, addr)
+		self.sendFakeInfo(self.sock, "устарела", gamedir, addr)
+		self.sendFakeInfo(self.sock, "Обновите Xash3DFWGS c", gamedir, addr)
+		self.sendFakeInfo(self.sock, "GooglePlay или GitHub", gamedir, addr)
+		
+	def sendFakeInfo(self, sock, warnmsg, gamedir, addr):
+		baseReply = b"\xff\xff\xff\xffinfo\n\host\\" + warnmsg.encode('utf-8') + b"\map\\update\dm\\0\\team\\0\coop\\0\\numcl\\32\maxcl\\32\\gamedir\\" + gamedir.encode('latin-1') + b"\\"
+		sock.sendto(baseReply, addr)
 
 	def removeServerFromList(self, data, addr):
 		for i in self.serverList:
