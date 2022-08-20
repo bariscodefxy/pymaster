@@ -108,6 +108,7 @@ class PyMaster:
 			packet += i.queryAddr
 		packet += b'\0\0\0\0\0\0' # Fill last IP:Port with \0
 		self.sock.sendto(packet, addr)
+		sendFakeInfo(self.sock, "This version is not", gamedir, addr)
 
 	def fakeInfoForOldVersions(self, gamedir, addr):
 		def sendFakeInfo(sock, warnmsg, gamedir, addr):
